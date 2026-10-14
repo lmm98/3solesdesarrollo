@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3 Soles — Desarrollos inmobiliarios en Mataderos</title>
+<meta name="description" content="3 Soles desarrolla viviendas simples, luminosas y bien construidas en Barrio Naón, Mataderos (CABA). Proyectos en obra y obras entregadas.">
+<link rel="canonical" href="https://3solesdesarrollo.com.ar/">
+<meta property="og:title" content="3 Soles — Desarrollos inmobiliarios">
+<meta property="og:description" content="Viviendas simples, luminosas y bien construidas en Barrio Naón, Mataderos.">
+<meta property="og:url" content="https://3solesdesarrollo.com.ar/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://3solesdesarrollo.com.ar/logo-black.png">
+<link rel="icon" type="image/png" href="logo-black.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#F5F4F0;--bg2:#ECEAE4;--ink:#121212;--text:#3A3A36;--muted:#5A5A55;--line:#DAD8D2;--accent:#121212}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Archivo','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--ink)}a:hover{color:var(--muted)}
+  img{max-width:100%}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  .eyebrow{margin:0 0 20px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .h2{margin:0;font-weight:300;font-stretch:112%;font-size:clamp(32px,4vw,52px);line-height:1.08}
+  .ph{background-color:#E9E7E1;background-image:repeating-linear-gradient(135deg,rgba(18,18,18,.05) 0 1px,transparent 1px 14px);display:flex;padding:16px;font-size:12px;letter-spacing:.1em;color:var(--muted)}
+  .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .pill{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;background:var(--accent);color:#fff;text-decoration:none;border-radius:999px;font-size:15px;letter-spacing:.04em;border:0;cursor:pointer;font-family:inherit}
+  .pill:hover{color:#fff;opacity:.88}
+  .section{padding:128px 0}
+  .head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px}
+  .head p{margin:0;max-width:380px;font-size:16px;line-height:1.6;color:var(--text)}
+
+  header{border-bottom:1px solid var(--line)}
+  .nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;padding-top:20px;padding-bottom:20px}
+  .nav nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;font-size:14px;letter-spacing:.04em}
+  .nav nav a{text-decoration:none;padding:12px 0}
+  .nav nav a.cta{padding:12px 20px;border:1px solid var(--ink);border-radius:999px}
+
+  .hero{padding-top:96px;padding-bottom:72px}
+  .hero h1{margin:0;font-weight:300;font-stretch:112%;font-size:clamp(48px,9vw,128px);line-height:.95;letter-spacing:-.02em}
+  .hero .row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:48px}
+  .hero .row p{margin:0;max-width:460px;font-size:18px;line-height:1.6;color:var(--text)}
+  .hero-img{height:clamp(280px,44vw,580px);align-items:flex-end;padding:24px;font-size:13px}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-bottom:1px solid var(--line)}
+  .stats div{padding:36px 24px 36px 0}
+  .stats strong{display:block;font-size:44px;font-weight:300;font-stretch:112%}
+  .stats span{display:block;margin-top:8px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+  .grid-active{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:48px 32px}
+  .card{display:flex;flex-direction:column}
+  .card .ph{aspect-ratio:4/5;align-items:flex-start;justify-content:space-between;position:relative;padding:0}
+  .card .ph .tag{position:absolute;top:16px;left:16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;padding:6px 10px;border-radius:999px}
+  .card .ph .lbl{position:absolute;top:22px;right:16px}
+  .card .title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:20px 0 12px;border-bottom:1px solid var(--line)}
+  .card h3{margin:0;font-size:24px;font-weight:400;font-stretch:108%}
+  .card h3 span,.done h3 span{font-weight:300}
+  .card .meta{display:flex;justify-content:space-between;gap:12px;padding:12px 0;font-size:14px;color:var(--muted)}
+  .card .more{align-self:flex-start;margin-top:8px;display:inline-flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none;font-size:14px;letter-spacing:.04em;border-bottom:1px solid var(--ink)}
+
+  #finalizados{background:var(--bg2)}
+  .grid-done{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px 24px}
+  .done .ph{aspect-ratio:1/1;align-items:flex-end;background-color:#E2DFD8;padding:14px}
+  .done .ph:has(img){padding:0}
+  .done .title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 0 10px;border-bottom:1px solid #CFCCC5}
+  .done h3{margin:0;font-size:18px;font-weight:400}
+  .done .title span.s{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+  .two{display:flex;flex-wrap:wrap;gap:48px 96px}
+  .two > *{flex:1 1 340px}
+  .two .body{display:flex;flex-direction:column;gap:20px;font-size:17px;line-height:1.7;color:var(--text);padding-top:6px}
+  .two .body p{margin:0}
+  .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:88px}
+  .feat div{background:var(--bg);padding:36px 28px}
+  .feat h3{margin:24px 0 10px;font-size:18px;font-weight:600}
+  .feat p{margin:0;font-size:15px;line-height:1.6;color:var(--muted)}
+
+  #contacto{border-top:1px solid var(--line)}
+  .contact-links{display:flex;flex-direction:column;gap:12px;font-size:16px}
+  .contact-links a{text-decoration:none}
+  form{display:flex;flex-direction:column;gap:22px}
+  label{display:flex;flex-direction:column;gap:8px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  input,select,textarea{font:inherit;border:0;border-bottom:1px solid #8A8A84;background:transparent;padding:10px 0;font-size:17px;color:var(--ink);letter-spacing:0;text-transform:none;border-radius:0}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:2px}
+  textarea{resize:vertical}
+  .form-note{font-size:13px;color:var(--muted);margin:0}
+
+  footer{background:var(--ink);color:var(--bg)}
+  footer .wrap{padding-top:64px;padding-bottom:40px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px}
+  footer p{margin:0;font-size:13px;color:#A9A9A3;line-height:1.6}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand span{font-weight:600;font-size:16px;letter-spacing:.24em;font-stretch:115%}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" aria-label="3 Soles — inicio"><img src="logo-black.png" alt="3 Soles" style="height:30px;width:auto;display:block"></a>
+    <nav aria-label="Principal">
+      <a href="#en-obra">En obra</a>
+      <a href="#finalizados">Finalizados</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto" class="cta">Consultar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="inicio" class="wrap hero">
+    <p class="eyebrow" style="margin-bottom:28px">Desarrollos inmobiliarios · Mataderos · CABA</p>
+    <h1>Construimos<br>barrio.</h1>
+    <div class="row">
+      <p>Viviendas simples, luminosas y bien construidas, en las calles de Barrio Naón.</p>
+      <a href="#en-obra" class="pill">Ver proyectos en obra
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <!-- Para usar una foto: reemplazá el texto por <img src="fotos/portada.jpg" alt="..."> y sacá el padding -->
+    <div class="ph hero-img" role="img" aria-label="Foto de una obra">[FOTO DESTACADA]</div>
+  </div>
+
+  <section class="wrap" aria-label="Datos clave">
+    <div class="stats">
+      <div><strong id="count-done">9</strong><span>Obras finalizadas</span></div>
+      <div><strong id="count-active">4</strong><span>Proyectos en obra</span></div>
+      <div><strong>[N°]</strong><span>Unidades entregadas</span></div>
+      <div><strong>[N°]</strong><span>Años de trayectoria</span></div>
+    </div>
+  </section>
+
+  <section id="en-obra" class="wrap section">
+    <div class="head">
+      <div><p class="eyebrow">01 — En obra</p><h2 class="h2">Proyectos en desarrollo</h2></div>
+      <p>Unidades disponibles en preventa y en construcción.</p>
+    </div>
+    <div class="grid-active" id="list-active"></div>
+  </section>
+
+  <section id="finalizados">
+    <div class="wrap section">
+      <div class="head">
+        <div><p class="eyebrow">02 — Finalizados</p><h2 class="h2">Obras entregadas</h2></div>
+        <p>Cada obra terminada es un vecino más del barrio.</p>
+      </div>
+      <div class="grid-done" id="list-done"></div>
+    </div>
+  </section>
+
+  <section id="nosotros" class="wrap section">
+    <div class="two">
+      <div><p class="eyebrow">03 — Nosotros</p><h2 class="h2">Desarrollamos donde vivimos.</h2></div>
+      <div class="body">
+        <p>[Historia de 3 Soles: quiénes son, desde cuándo construyen y qué los distingue.]</p>
+        <p>[Cómo trabajan: diseño, calidad de materiales, seguimiento de obra y entrega.]</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div>
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#121212" stroke-width="1.4" aria-hidden="true"><circle cx="14" cy="14" r="5"/><path d="M14 2v4M14 22v4M2 14h4M22 14h4M5.5 5.5l2.8 2.8M19.7 19.7l2.8 2.8M5.5 22.5l2.8-2.8M19.7 8.3l2.8-2.8"/></svg>
+        <h3>Luz natural</h3><p>[Orientación y aberturas pensadas en cada proyecto.]</p>
+      </div>
+      <div>
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#121212" stroke-width="1.4" aria-hidden="true"><rect x="4" y="4" width="20" height="20"/><path d="M4 14h20M14 4v20"/></svg>
+        <h3>Plantas funcionales</h3><p>[Distribuciones que aprovechan cada metro.]</p>
+      </div>
+      <div>
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#121212" stroke-width="1.4" aria-hidden="true"><path d="M3 20c4-3 7-3 11 0s7 3 11 0"/><path d="M8 18V7l6 4 6-4v11"/></svg>
+        <h3>Escala de barrio</h3><p>[Edificios bajos que respetan el entorno.]</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap section two">
+      <div>
+        <p class="eyebrow">04 — Contacto</p>
+        <h2 class="h2" style="margin-bottom:32px">Coordinemos una visita.</h2>
+        <div class="contact-links">
+          <a id="link-wa" href="#" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+          <a id="link-mail" href="#"></a>
+          <span style="color:var(--muted)">[Oficina / horario de atención]</span>
+        </div>
+      </div>
+      <div>
+        <div id="soon" hidden style="padding:32px 0;border-top:1px solid var(--ink)">
+          <h3 style="margin:0 0 8px;font-size:22px;font-weight:400">Muy pronto</h3>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:var(--muted)">Estamos habilitando nuestros canales de contacto. En breve vas a poder escribirnos por WhatsApp y mail.</p>
+        </div>
+        <form id="form">
+          <label>Nombre<input type="text" name="nombre" autocomplete="name" required></label>
+          <label>Teléfono<input type="tel" name="telefono" autocomplete="tel"></label>
+          <label>Proyecto de interés
+            <select name="proyecto" id="select-proyecto">
+              <option value="">Elegí un proyecto</option>
+            </select>
+          </label>
+          <label>Mensaje<textarea name="mensaje" rows="3"></textarea></label>
+          <button type="submit" class="pill" style="align-self:flex-start;margin-top:8px">Enviar por WhatsApp</button>
+          <p class="form-note">Se abre WhatsApp con tu consulta lista para enviar.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><img src="logo-white.png" alt="" style="height:48px;width:auto;display:block"><span>3 SOLES</span></div>
+    <p>Mataderos · CABA<br>Las imágenes son ilustrativas y no contractuales.<br>© <span id="year"></span> 3 Soles Desarrollos</p>
+  </div>
+</footer>
+
+<script>
+/* ===================== DATOS PARA EDITAR ===================== */
+// Dejar vacío ('') lo que todavía no exista: la web oculta ese dato automáticamente.
+const CONTACTO = {
+  whatsapp: '', // ej: '5491123456789' (código país + 9 + área + número, sin espacios ni "+")
+  email: ''     // ej: 'info@3solesdesarrollo.com.ar'
+};
+
+// "foto": nombre del archivo dentro de la carpeta fotos/ (dejar vacío si todavía no hay)
+const EN_OBRA = [
+  { nombre: 'Montiel 1541',          unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', foto: '' },
+  { nombre: 'Zelada 7220',           unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', foto: '' },
+  { nombre: 'Zequeira 7486',         unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', foto: '' },
+  { nombre: 'José León Suárez 1659', unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', foto: '' }
+];
+
+const FINALIZADOS = [
+  { nombre: 'Fragata La Argentina 1824', foto: '' },
+  { nombre: 'Fragata La Argentina 1835', foto: '' },
+  { nombre: 'Fragata Céfiro 1815',       foto: '' },
+  { nombre: 'Fragata Céfiro 1791',       foto: '' },
+  { nombre: 'Carhué 1635',               foto: '' },
+  { nombre: 'Carhué 1644',               foto: '' },
+  { nombre: 'Guaminí 1440',              foto: '' },
+  { nombre: 'Guaminí 1548',              foto: '' },
+  { nombre: 'Montiel 1831',              foto: '' }
+];
+/* ============================================================= */
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const split = s => { const k = s.lastIndexOf(' '); return [s.slice(0, k), s.slice(k + 1)]; };
+const media = (p, label) => p.foto ? `<img src="fotos/${esc(p.foto)}" alt="${esc(p.nombre)}" loading="lazy">` : label;
+
+document.getElementById('list-active').innerHTML = EN_OBRA.map((p, i) => {
+  const [calle, num] = split(p.nombre);
+  return `<article class="card">
+    <div class="ph" role="img" aria-label="${esc(p.nombre)}">${media(p, '<span class="lbl">[RENDER]</span>')}<span class="tag">En obra</span></div>
+    <div class="title"><h3>${esc(calle)} <span>${esc(num)}</span></h3><span style="font-size:13px;color:var(--muted)">${String(i + 1).padStart(2, '0')}</span></div>
+    <div class="meta"><span>${esc(p.unidades)} unidades · ${esc(p.ambientes)} amb.</span><span>Entrega ${esc(p.entrega)}</span></div>
+    <a href="#contacto" class="more" data-proyecto="${esc(p.nombre)}">Consultar unidades
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+  </article>`;
+}).join('');
+
+document.getElementById('list-done').innerHTML = FINALIZADOS.map(p => {
+  const [calle, num] = split(p.nombre);
+  return `<article class="done">
+    <div class="ph" role="img" aria-label="${esc(p.nombre)}">${media(p, '[FOTO]')}</div>
+    <div class="title"><h3>${esc(calle)} <span>${esc(num)}</span></h3><span class="s">Entregado</span></div>
+  </article>`;
+}).join('');
+
+document.getElementById('count-active').textContent = EN_OBRA.length;
+document.getElementById('count-done').textContent = FINALIZADOS.length;
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const sel = document.getElementById('select-proyecto');
+EN_OBRA.forEach(p => sel.insertAdjacentHTML('beforeend', `<option>${esc(p.nombre)}</option>`));
+sel.insertAdjacentHTML('beforeend', '<option>Otro / consulta general</option>');
+
+document.querySelectorAll('[data-proyecto]').forEach(a => a.addEventListener('click', () => { sel.value = a.dataset.proyecto; }));
+
+const wa = document.getElementById('link-wa');
+const mail = document.getElementById('link-mail');
+if (CONTACTO.whatsapp) { wa.href = `https://wa.me/${CONTACTO.whatsapp}`; } else { wa.remove(); }
+if (CONTACTO.email) { mail.href = `mailto:${CONTACTO.email}`; mail.textContent = CONTACTO.email; } else { mail.remove(); }
+if (!CONTACTO.whatsapp) {
+  document.getElementById('form').hidden = true;
+  document.getElementById('soon').hidden = false;
+}
+
+document.getElementById('form').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const lines = [
+    `Hola, soy ${f.get('nombre')}.`,
+    f.get('proyecto') ? `Me interesa: ${f.get('proyecto')}.` : '',
+    f.get('mensaje') || '',
+    f.get('telefono') ? `Mi teléfono: ${f.get('telefono')}` : ''
+  ].filter(Boolean);
+  window.open(`https://wa.me/${CONTACTO.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+});
+</script>
+</body>
+</html>

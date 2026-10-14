@@ -1,0 +1,2 @@
+Poné acá las fotos y renders (jpg o webp, idealmente de menos de 400 KB cada una)
+y escribí el nombre del archivo en el campo "foto" de cada obra, dentro de index.html.
