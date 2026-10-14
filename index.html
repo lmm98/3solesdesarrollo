@@ -76,6 +76,10 @@
   .services ul{list-style:none;margin:0 0 24px;padding:0;font-size:15px;color:var(--muted)}
   .services li{padding:10px 0;border-top:1px solid var(--line)}
   .services .more{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none;font-size:14px;letter-spacing:.04em;border-bottom:1px solid var(--ink)}
+  .client-side{display:flex;align-items:flex-end;gap:24px;max-width:460px}
+  .client-side p{margin:0}
+  .lm-mark{height:64px;width:auto;flex:none;display:block}
+  .brand .sep{width:1px;height:40px;background:#3A3A36}
   #client-works{margin-top:72px}
   .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
   .filter{min-height:44px;padding:10px 22px;border-radius:999px;font-family:inherit;font-size:14px;letter-spacing:.04em;cursor:pointer;border:1px solid var(--ink);background:transparent;color:var(--ink)}
@@ -168,7 +172,10 @@
   <section id="clientes" class="wrap section">
     <div class="head">
       <div><p class="eyebrow">03 — Para clientes</p><h2 class="h2">Tu casa o tu reforma,<br>con el mismo equipo.</h2></div>
-      <p>También construimos por encargo: casas a medida y reformas, con la misma calidad que nuestros desarrollos.</p>
+      <div class="client-side">
+        <img src="lm-black.png" alt="Logo LM" class="lm-mark">
+        <p>También construimos por encargo: casas a medida y reformas, con la misma calidad que nuestros desarrollos.</p>
+      </div>
     </div>
 
     <div class="services">
@@ -259,7 +266,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="brand"><img src="logo-white.png" alt="" style="height:48px;width:auto;display:block"><span>3 SOLES</span></div>
+    <div class="brand"><img src="logo-white.png" alt="" style="height:48px;width:auto;display:block"><span>3 SOLES</span><span class="sep" aria-hidden="true"></span><img src="lm-white.png" alt="Logo LM" style="height:40px;width:auto;display:block"></div>
     <p>Mataderos · CABA<br>Las imágenes son ilustrativas y no contractuales.<br>© <span id="year"></span> 3 Soles Desarrollos</p>
   </div>
 </footer>
