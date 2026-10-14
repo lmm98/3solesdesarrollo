@@ -67,6 +67,7 @@
   .done .ph:has(img){padding:0}
   .done .title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 0 10px;border-bottom:1px solid #CFCCC5}
   .done h3{margin:0;font-size:18px;font-weight:400}
+  .done-meta{padding:10px 0 0;font-size:14px;color:var(--muted)}
   .done .title span.s{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 
   .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
@@ -174,7 +175,7 @@
         <div><p class="eyebrow">02 — Finalizados</p><h2 class="h2">Obras entregadas</h2></div>
         <p>Cada obra terminada es un vecino más del barrio.</p>
       </div>
-      <div id="list-done"></div>
+      <div class="grid-done" id="list-done"></div>
     </div>
   </section>
 
@@ -351,20 +352,15 @@ document.getElementById('list-active').innerHTML = EN_OBRA.map((p, i) => {
 }).join('');
 
 const ordenadas = [...FINALIZADOS].sort((a, b) => (b.anio || 0) - (a.anio || 0));
-const conFoto = ordenadas.filter(p => p.foto);
-document.getElementById('list-done').innerHTML =
-  (conFoto.length ? `<div class="grid-done" style="margin-bottom:56px">${conFoto.map(p => {
-    const [calle, num] = split(p.nombre);
-    return `<article class="done">
-      <div class="ph" role="img" aria-label="${esc(p.nombre)}">${media(p, '')}</div>
-      <div class="title"><h3>${esc(calle)} <span>${esc(num)}</span></h3><span class="s">${esc(p.anio)}</span></div>
-    </article>`;
-  }).join('')}</div>` : '') +
-  `<ul class="done-list">${ordenadas.map(p => {
-    const [calle, num] = split(p.nombre);
-    const datos = [`${p.uf} ${p.uf === 1 ? 'unidad' : 'unidades'}`, p.m2 ? `${esc(p.m2)} m²` : ''].filter(Boolean).join(' · ');
-    return `<li><span class="dl-name">${esc(calle)} <span>${esc(num)}</span></span><span class="dl-data">${datos}</span><span class="dl-year">${esc(p.anio) || '—'}</span></li>`;
-  }).join('')}</ul>`;
+document.getElementById('list-done').innerHTML = ordenadas.map(p => {
+  const [calle, num] = split(p.nombre);
+  const datos = [`${p.uf} ${p.uf === 1 ? 'unidad' : 'unidades'}`, p.m2 ? `${esc(p.m2)} m²` : ''].filter(Boolean).join(' · ');
+  return `<article class="done">
+    <div class="ph" role="img" aria-label="${esc(p.nombre)}">${media(p, '[FOTO]')}</div>
+    <div class="title"><h3>${esc(calle)} <span>${esc(num)}</span></h3><span class="s">${esc(p.anio) || 'Entregado'}</span></div>
+    <div class="done-meta">${datos}</div>
+  </article>`;
+}).join('');
 
 const renderClientes = filtro => {
   document.getElementById('list-clientes').innerHTML = CLIENTES
