@@ -159,6 +159,7 @@
       <div><strong id="count-done">9</strong><span>Obras finalizadas</span></div>
       <div><strong id="count-active">4</strong><span>Proyectos en obra</span></div>
       <div><strong id="count-units">—</strong><span>Unidades entregadas</span></div>
+      <div><strong id="count-m2">—</strong><span>m² construidos</span></div>
       <div><strong id="count-years">—</strong><span>Años de trayectoria</span></div>
     </div>
   </section>
@@ -301,36 +302,36 @@ const EN_OBRA = [
 
 // "uf": unidades funcionales · "anio": año de entrega ('' si no se sabe) · "m2": metros cuadrados ('' si no se sabe)
 const FINALIZADOS = [
-  { nombre: 'White 824',                  uf: 10, anio: '2006', m2: '', foto: '' },
-  { nombre: 'Timoteo Gordillo 1079',      uf:  6, anio: '2006', m2: '', foto: '' },
-  { nombre: 'Timoteo Gordillo 1789',      uf:  2, anio: '', m2: '', foto: '' },
-  { nombre: 'Zelada 6865',                uf:  8, anio: '2006', m2: '', foto: '' },
-  { nombre: 'Cafayate 1015',              uf:  2, anio: '1997', m2: '', foto: '' },
-  { nombre: 'Fragata Céfiro 1791',        uf:  4, anio: '2024', m2: '', foto: '' },
-  { nombre: 'Fragata Céfiro 1815',        uf:  8, anio: '2024', m2: '', foto: '' },
-  { nombre: 'Fragata Céfiro 1895',        uf:  5, anio: '2024', m2: '', foto: '' },
-  { nombre: 'Ulrico Schmidl 7189',        uf:  9, anio: '2023', m2: '', foto: '' },
-  { nombre: 'Ulrico Schmidl 7256',        uf:  9, anio: '2023', m2: '', foto: '' },
-  { nombre: 'Acassuso 6971',              uf:  6, anio: '2023', m2: '', foto: '' },
-  { nombre: 'Fragata La Argentina 1835',  uf:  4, anio: '2026', m2: '', foto: '' },
-  { nombre: 'Fragata La Argentina 1824',  uf:  8, anio: '2026', m2: '', foto: '' },
-  { nombre: 'Carhué 1644',                uf:  3, anio: '2021', m2: '', foto: '' },
-  { nombre: 'Carhué 1635',                uf:  3, anio: '2021', m2: '', foto: '' },
-  { nombre: 'Carhué 1675',                uf:  6, anio: '2016', m2: '', foto: '' },
-  { nombre: 'Carhué 1611',                uf:  1, anio: '2011', m2: '', foto: '' },
-  { nombre: 'Albariños 735',              uf:  6, anio: '2020', m2: '', foto: '' },
-  { nombre: 'Pilar 1353',                 uf:  6, anio: '', m2: '', foto: '' },
-  { nombre: 'Cossio 6275',                uf:  7, anio: '2021', m2: '', foto: '' },
-  { nombre: 'Cossio 6518',                uf:  5, anio: '', m2: '', foto: '' },
-  { nombre: 'Emilio Castro 5221',         uf:  6, anio: '', m2: '', foto: '' },
-  { nombre: 'Montiel 1735',               uf:  6, anio: '2012', m2: '', foto: '' },
-  { nombre: 'Montiel 1744',               uf:  6, anio: '2014', m2: '', foto: '' },
-  { nombre: 'Montiel 1820',               uf:  6, anio: '2014', m2: '', foto: '' },
-  { nombre: 'Montiel 1831',               uf: 14, anio: '2018', m2: '', foto: '' },
-  { nombre: 'Guaminí 1440',               uf:  3, anio: '2021', m2: '', foto: '' },
-  { nombre: 'Guaminí 1548',               uf: 12, anio: '2015', m2: '', foto: '' },
-  { nombre: 'Zelada 7165',                uf:  6, anio: '2018', m2: '', foto: '' },
-  { nombre: 'Martiniano Leguizamón 1443', uf: 14, anio: '', m2: '', foto: '' }
+  { nombre: 'White 824',                  uf: 10, anio: '2006', m2: '600', foto: '' },
+  { nombre: 'Timoteo Gordillo 1079',      uf:  6, anio: '2006', m2: '450', foto: '' },
+  { nombre: 'Timoteo Gordillo 1789',      uf:  2, anio: '', m2: '450', foto: '' },
+  { nombre: 'Zelada 6865',                uf:  8, anio: '2006', m2: '400', foto: '' },
+  { nombre: 'Cafayate 1015',              uf:  2, anio: '1997', m2: '400', foto: '' },
+  { nombre: 'Fragata Céfiro 1791',        uf:  4, anio: '2024', m2: '650', foto: '' },
+  { nombre: 'Fragata Céfiro 1815',        uf:  8, anio: '2024', m2: '650', foto: '' },
+  { nombre: 'Fragata Céfiro 1895',        uf:  5, anio: '2024', m2: '450', foto: '' },
+  { nombre: 'Ulrico Schmidl 7189',        uf:  9, anio: '2023', m2: '650', foto: '' },
+  { nombre: 'Ulrico Schmidl 7256',        uf:  9, anio: '2023', m2: '650', foto: '' },
+  { nombre: 'Acassuso 6971',              uf:  6, anio: '2023', m2: '450', foto: '' },
+  { nombre: 'Fragata La Argentina 1835',  uf:  4, anio: '2026', m2: '600', foto: '' },
+  { nombre: 'Fragata La Argentina 1824',  uf:  8, anio: '2026', m2: '600', foto: '' },
+  { nombre: 'Carhué 1644',                uf:  3, anio: '2021', m2: '600', foto: '' },
+  { nombre: 'Carhué 1635',                uf:  3, anio: '2021', m2: '700', foto: '' },
+  { nombre: 'Carhué 1675',                uf:  6, anio: '2016', m2: '500', foto: '' },
+  { nombre: 'Carhué 1611',                uf:  1, anio: '2011', m2: '250', foto: '' },
+  { nombre: 'Albariños 735',              uf:  6, anio: '2020', m2: '435', foto: '' },
+  { nombre: 'Pilar 1353',                 uf:  6, anio: '', m2: '800', foto: '' },
+  { nombre: 'Cossio 6275',                uf:  7, anio: '2021', m2: '1200', foto: '' },
+  { nombre: 'Cossio 6518',                uf:  5, anio: '', m2: '500', foto: '' },
+  { nombre: 'Emilio Castro 5221',         uf:  6, anio: '', m2: '600', foto: '' },
+  { nombre: 'Montiel 1735',               uf:  6, anio: '2012', m2: '400', foto: '' },
+  { nombre: 'Montiel 1744',               uf:  6, anio: '2014', m2: '400', foto: '' },
+  { nombre: 'Montiel 1820',               uf:  6, anio: '2014', m2: '400', foto: '' },
+  { nombre: 'Montiel 1831',               uf: 14, anio: '2018', m2: '1200', foto: '' },
+  { nombre: 'Guaminí 1440',               uf:  3, anio: '2021', m2: '600', foto: '' },
+  { nombre: 'Guaminí 1548',               uf: 12, anio: '2015', m2: '1200', foto: '' },
+  { nombre: 'Zelada 7165',                uf:  6, anio: '2018', m2: '400', foto: '' },
+  { nombre: 'Martiniano Leguizamón 1443', uf: 14, anio: '', m2: '1200', foto: '' }
 ];
 
 // Trabajos para clientes. "tipo": 'Casa' o 'Reforma'. La sección de trabajos aparece sola cuando hay al menos uno.
@@ -357,7 +358,7 @@ document.getElementById('list-active').innerHTML = EN_OBRA.map((p, i) => {
 const ordenadas = [...FINALIZADOS].sort((a, b) => (b.anio || 0) - (a.anio || 0));
 document.getElementById('list-done').innerHTML = ordenadas.map(p => {
   const [calle, num] = split(p.nombre);
-  const datos = [`${p.uf} ${p.uf === 1 ? 'unidad' : 'unidades'}`, p.m2 ? `${esc(p.m2)} m²` : ''].filter(Boolean).join(' · ');
+  const datos = [`${p.uf} ${p.uf === 1 ? 'unidad' : 'unidades'}`, p.m2 ? `${Number(p.m2).toLocaleString('es-AR')} m²` : ''].filter(Boolean).join(' · ');
   return `<article class="done">
     <div class="ph" role="img" aria-label="${esc(p.nombre)}">${media(p, '[FOTO]')}</div>
     <div class="title"><h3>${esc(calle)}<span class="num">${esc(num)}</span></h3><span class="s">${esc(p.anio) || 'Entregado'}</span></div>
@@ -385,6 +386,7 @@ if (CLIENTES.length) {
 document.getElementById('count-active').textContent = EN_OBRA.length;
 document.getElementById('count-done').textContent = FINALIZADOS.length;
 document.getElementById('count-units').textContent = FINALIZADOS.reduce((s, p) => s + (Number(p.uf) || 0), 0);
+document.getElementById('count-m2').textContent = FINALIZADOS.reduce((s, p) => s + (Number(p.m2) || 0), 0).toLocaleString('es-AR');
 const primerAnio = Math.min(...FINALIZADOS.map(p => Number(p.anio)).filter(Boolean));
 document.getElementById('count-years').textContent = new Date().getFullYear() - primerAnio;
 document.getElementById('year').textContent = new Date().getFullYear();
