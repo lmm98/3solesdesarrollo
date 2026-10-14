@@ -69,6 +69,17 @@
   .done h3{margin:0;font-size:18px;font-weight:400}
   .done .title span.s{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 
+  .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+  .services > div{background:var(--bg);padding:40px 32px;display:flex;flex-direction:column}
+  .services h3{margin:24px 0 10px;font-size:26px;font-weight:300;font-stretch:112%}
+  .services p{margin:0 0 20px;font-size:16px;line-height:1.6;color:var(--text)}
+  .services ul{list-style:none;margin:0 0 24px;padding:0;font-size:15px;color:var(--muted)}
+  .services li{padding:10px 0;border-top:1px solid var(--line)}
+  .services .more{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none;font-size:14px;letter-spacing:.04em;border-bottom:1px solid var(--ink)}
+  #client-works{margin-top:72px}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+  .filter{min-height:44px;padding:10px 22px;border-radius:999px;font-family:inherit;font-size:14px;letter-spacing:.04em;cursor:pointer;border:1px solid var(--ink);background:transparent;color:var(--ink)}
+  .filter.on{background:var(--ink);color:#fff}
   .two{display:flex;flex-wrap:wrap;gap:48px 96px}
   .two > *{flex:1 1 340px}
   .two .body{display:flex;flex-direction:column;gap:20px;font-size:17px;line-height:1.7;color:var(--text);padding-top:6px}
@@ -103,6 +114,7 @@
     <nav aria-label="Principal">
       <a href="#en-obra">En obra</a>
       <a href="#finalizados">Finalizados</a>
+      <a href="#clientes">Casas y reformas</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#contacto" class="cta">Consultar</a>
     </nav>
@@ -153,9 +165,44 @@
     </div>
   </section>
 
-  <section id="nosotros" class="wrap section">
+  <section id="clientes" class="wrap section">
+    <div class="head">
+      <div><p class="eyebrow">03 — Para clientes</p><h2 class="h2">Tu casa o tu reforma,<br>con el mismo equipo.</h2></div>
+      <p>También construimos por encargo: casas a medida y reformas, con la misma calidad que nuestros desarrollos.</p>
+    </div>
+
+    <div class="services">
+      <div>
+        <svg width="32" height="32" viewBox="0 0 28 28" fill="none" stroke="#121212" stroke-width="1.4" aria-hidden="true"><path d="M3 13 14 4l11 9"/><path d="M6 11v13h16V11"/><path d="M11.5 24v-7h5v7"/></svg>
+        <h3>Casas a medida</h3>
+        <p>Proyectamos y construimos tu casa desde el terreno hasta la entrega de llaves.</p>
+        <ul><li>Proyecto y documentación</li><li>Construcción llave en mano</li><li>Seguimiento de obra</li></ul>
+        <a href="#contacto" class="more" data-proyecto="Casa a medida">Pedir presupuesto
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div>
+        <svg width="32" height="32" viewBox="0 0 28 28" fill="none" stroke="#121212" stroke-width="1.4" aria-hidden="true"><path d="M4 24h20"/><path d="M6 24V8h10v16"/><path d="m18 6 4 4-7 7h-4v-4z"/></svg>
+        <h3>Reformas</h3>
+        <p>Renovamos ambientes, ampliamos y actualizamos tu casa o departamento.</p>
+        <ul><li>Cocinas y baños</li><li>Ampliaciones</li><li>Remodelaciones integrales</li></ul>
+        <a href="#contacto" class="more" data-proyecto="Reforma">Pedir presupuesto
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+
+    <div id="client-works" hidden>
+      <div class="filters" role="group" aria-label="Filtrar trabajos">
+        <button type="button" class="filter on" data-filtro="todos" aria-pressed="true">Todos</button>
+        <button type="button" class="filter" data-filtro="Casa" aria-pressed="false">Casas</button>
+        <button type="button" class="filter" data-filtro="Reforma" aria-pressed="false">Reformas</button>
+      </div>
+      <div class="grid-done" id="list-clientes"></div>
+    </div>
+  </section>
+
+  <section id="nosotros" class="wrap section" style="border-top:1px solid var(--line)">
     <div class="two">
-      <div><p class="eyebrow">03 — Nosotros</p><h2 class="h2">Desarrollamos donde vivimos.</h2></div>
+      <div><p class="eyebrow">04 — Nosotros</p><h2 class="h2">Desarrollamos donde vivimos.</h2></div>
       <div class="body">
         <p>[Historia de 3 Soles: quiénes son, desde cuándo construyen y qué los distingue.]</p>
         <p>[Cómo trabajan: diseño, calidad de materiales, seguimiento de obra y entrega.]</p>
@@ -180,7 +227,7 @@
   <section id="contacto">
     <div class="wrap section two">
       <div>
-        <p class="eyebrow">04 — Contacto</p>
+        <p class="eyebrow">05 — Contacto</p>
         <h2 class="h2" style="margin-bottom:32px">Coordinemos una visita.</h2>
         <div class="contact-links">
           <a id="link-wa" href="#" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
@@ -244,6 +291,11 @@ const FINALIZADOS = [
   { nombre: 'Guaminí 1548',              foto: '' },
   { nombre: 'Montiel 1831',              foto: '' }
 ];
+
+// Trabajos para clientes. "tipo": 'Casa' o 'Reforma'. La sección de trabajos aparece sola cuando hay al menos uno.
+// Ejemplo: { nombre: 'Reforma de cocina', zona: 'Mataderos', tipo: 'Reforma', foto: 'cocina-1.jpg' },
+const CLIENTES = [
+];
 /* ============================================================= */
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -269,13 +321,30 @@ document.getElementById('list-done').innerHTML = FINALIZADOS.map(p => {
   </article>`;
 }).join('');
 
+const renderClientes = filtro => {
+  document.getElementById('list-clientes').innerHTML = CLIENTES
+    .filter(p => filtro === 'todos' || p.tipo === filtro)
+    .map(p => `<article class="done">
+      <div class="ph" role="img" aria-label="${esc(p.nombre)}">${media(p, '[FOTO]')}</div>
+      <div class="title"><h3>${esc(p.nombre)}${p.zona ? ` <span>· ${esc(p.zona)}</span>` : ''}</h3><span class="s">${esc(p.tipo)}</span></div>
+    </article>`).join('');
+};
+if (CLIENTES.length) {
+  document.getElementById('client-works').hidden = false;
+  renderClientes('todos');
+  document.querySelectorAll('.filter').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.filter').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+    renderClientes(b.dataset.filtro);
+  }));
+}
+
 document.getElementById('count-active').textContent = EN_OBRA.length;
 document.getElementById('count-done').textContent = FINALIZADOS.length;
 document.getElementById('year').textContent = new Date().getFullYear();
 
 const sel = document.getElementById('select-proyecto');
 EN_OBRA.forEach(p => sel.insertAdjacentHTML('beforeend', `<option>${esc(p.nombre)}</option>`));
-sel.insertAdjacentHTML('beforeend', '<option>Otro / consulta general</option>');
+sel.insertAdjacentHTML('beforeend', '<option>Casa a medida</option><option>Reforma</option><option>Otro / consulta general</option>');
 
 document.querySelectorAll('[data-proyecto]').forEach(a => a.addEventListener('click', () => { sel.value = a.dataset.proyecto; }));
 
