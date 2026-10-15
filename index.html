@@ -12,6 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://3solesdesarrollo.com.ar/logo-black.png">
 <link rel="icon" type="image/png" href="logo-black.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..700&display=swap" rel="stylesheet">
@@ -29,7 +30,7 @@
   .ph img{width:100%;height:100%;object-fit:cover;display:block}
   .pill{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;background:var(--accent);color:#fff;text-decoration:none;border-radius:999px;font-size:15px;letter-spacing:.04em;border:0;cursor:pointer;font-family:inherit}
   .pill:hover{color:#fff;opacity:.88}
-  .section{padding:128px 0}
+  .section{padding-top:128px;padding-bottom:128px}
   .head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px}
   .head p{margin:0;max-width:380px;font-size:16px;line-height:1.6;color:var(--text)}
 
@@ -94,6 +95,19 @@
   .dl-name span{font-weight:300}
   .dl-data{font-size:14px;color:var(--muted);white-space:nowrap}
   .dl-year{font-size:14px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+  #mapa{border-top:1px solid var(--line)}
+  .map-box{height:clamp(380px,60vw,640px);background:#E9E7E1;border:1px solid var(--line)}
+  .map-box .leaflet-container{font-family:inherit;background:#E9E7E1}
+  .map-legend{display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:20px;font-size:14px;color:var(--text)}
+  .map-legend .item{display:inline-flex;align-items:center;gap:10px}
+  .map-legend img{height:16px;width:auto}
+  .leaflet-container .pin img{width:30px!important;height:auto!important;display:block;filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 1px 2px rgba(0,0,0,.25));transition:transform .15s}
+  .leaflet-container .pin:hover img{transform:scale(1.15)}
+  .pin-active{z-index:1000!important}
+  .leaflet-popup-content-wrapper{border-radius:0;box-shadow:0 4px 18px rgba(0,0,0,.12)}
+  .leaflet-popup-content{margin:14px 18px;font-size:14px;line-height:1.5;color:var(--text)}
+  .leaflet-popup-content strong{display:block;font-size:16px;font-weight:500;color:var(--ink);margin-bottom:2px}
+  .pop-tag{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
   .two{display:flex;flex-wrap:wrap;gap:48px 96px}
   .two > *{flex:1 1 340px}
   .two .body{display:flex;flex-direction:column;gap:20px;font-size:17px;line-height:1.7;color:var(--text);padding-top:6px}
@@ -134,6 +148,7 @@
       <a href="#finalizados">Finalizados</a>
       <a href="#clientes">Casas y reformas</a>
       <a href="#nosotros">Nosotros</a>
+      <a href="#mapa">Mapa</a>
       <a href="#contacto" class="cta">Consultar</a>
     </nav>
   </div>
@@ -277,6 +292,19 @@
       </div>
     </div>
   </section>
+  <section id="mapa">
+    <div class="wrap section">
+      <div class="head">
+        <div><p class="eyebrow">06 — Mapa de obras</p><h2 class="h2">Dónde construimos</h2></div>
+        <p>Cada logo marca una obra nuestra. Tocá uno para ver el detalle.</p>
+      </div>
+      <div class="map-box" id="map" role="region" aria-label="Mapa de obras de 3 Soles"></div>
+      <div class="map-legend">
+        <span class="item"><img src="logo-gold.png" alt=""><span>Entregadas (<span id="leg-done"></span>)</span></span>
+        <span class="item"><img src="logo-gray.png" alt=""><span>En obra (<span id="leg-active"></span>)</span></span>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -286,6 +314,7 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 /* ===================== DATOS PARA EDITAR ===================== */
 // Dejar vacío ('') lo que todavía no exista: la web oculta ese dato automáticamente.
@@ -295,45 +324,46 @@ const CONTACTO = {
 };
 
 // "foto": nombre del archivo dentro de la carpeta fotos/ (dejar vacío si todavía no hay)
+// "lat" / "lng": ubicación en el mapa (se sacan de Google Maps: clic derecho sobre el lugar)
 const EN_OBRA = [
-  { nombre: 'Montiel 1541',          unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', foto: '' },
-  { nombre: 'Zelada 7220',           unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', foto: '' },
-  { nombre: 'Zequeira 7486',         unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', foto: '' },
-  { nombre: 'José León Suárez 1659', unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', foto: '' }
+  { nombre: 'Montiel 1541',          unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', lat: -34.655114, lng: -58.520786, foto: '' },
+  { nombre: 'Zelada 7220',           unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', lat: -34.65755, lng: -58.514709, foto: '' },
+  { nombre: 'Zequeira 7486',         unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', lat: -34.66039, lng: -58.515839, foto: '' },
+  { nombre: 'José León Suárez 1659', unidades: '[N°]', ambientes: '[1 a 3]', entrega: '[AAAA]', lat: -34.657675, lng: -58.519881, foto: '' }
 ];
 
 // "uf": unidades funcionales · "anio": año de entrega ('' si no se sabe) · "m2": metros cuadrados ('' si no se sabe)
 const FINALIZADOS = [
-  { nombre: 'White 824',                  uf: 10, anio: '2006', m2: '600', foto: '' },
-  { nombre: 'Timoteo Gordillo 1079',      uf:  6, anio: '2006', m2: '450', foto: '' },
-  { nombre: 'Timoteo Gordillo 1789',      uf:  2, anio: '', m2: '450', foto: '' },
-  { nombre: 'Zelada 6865',                uf:  8, anio: '2006', m2: '400', foto: '' },
-  { nombre: 'Cafayate 1015',              uf:  2, anio: '1997', m2: '400', foto: '' },
-  { nombre: 'Fragata Céfiro 1791',        uf:  4, anio: '2024', m2: '650', foto: '' },
-  { nombre: 'Fragata Céfiro 1815',        uf:  8, anio: '2024', m2: '650', foto: '' },
-  { nombre: 'Fragata Céfiro 1895',        uf:  5, anio: '2024', m2: '450', foto: '' },
-  { nombre: 'Ulrico Schmidl 7189',        uf:  9, anio: '2023', m2: '650', foto: '' },
-  { nombre: 'Ulrico Schmidl 7256',        uf:  9, anio: '2023', m2: '650', foto: '' },
-  { nombre: 'Acassuso 6971',              uf:  6, anio: '2023', m2: '450', foto: '' },
-  { nombre: 'Fragata La Argentina 1835',  uf:  4, anio: '2026', m2: '600', foto: '' },
-  { nombre: 'Fragata La Argentina 1824',  uf:  8, anio: '2026', m2: '600', foto: '' },
-  { nombre: 'Carhué 1644',                uf:  3, anio: '2021', m2: '600', foto: '' },
-  { nombre: 'Carhué 1635',                uf:  3, anio: '2021', m2: '700', foto: '' },
-  { nombre: 'Carhué 1675',                uf:  6, anio: '2016', m2: '500', foto: '' },
-  { nombre: 'Carhué 1611',                uf:  1, anio: '2011', m2: '250', foto: '' },
-  { nombre: 'Albariños 735',              uf:  6, anio: '2020', m2: '435', foto: '' },
-  { nombre: 'Pilar 1353',                 uf:  6, anio: '', m2: '800', foto: '' },
-  { nombre: 'Cossio 6275',                uf:  7, anio: '2021', m2: '1200', foto: '' },
-  { nombre: 'Cossio 6518',                uf:  5, anio: '', m2: '500', foto: '' },
-  { nombre: 'Emilio Castro 5221',         uf:  6, anio: '', m2: '600', foto: '' },
-  { nombre: 'Montiel 1735',               uf:  6, anio: '2012', m2: '400', foto: '' },
-  { nombre: 'Montiel 1744',               uf:  6, anio: '2014', m2: '400', foto: '' },
-  { nombre: 'Montiel 1820',               uf:  6, anio: '2014', m2: '400', foto: '' },
-  { nombre: 'Montiel 1831',               uf: 14, anio: '2018', m2: '1200', foto: '' },
-  { nombre: 'Guaminí 1440',               uf:  3, anio: '2021', m2: '600', foto: '' },
-  { nombre: 'Guaminí 1548',               uf: 12, anio: '2015', m2: '1200', foto: '' },
-  { nombre: 'Zelada 7165',                uf:  6, anio: '2018', m2: '400', foto: '' },
-  { nombre: 'Martiniano Leguizamón 1443', uf: 14, anio: '', m2: '1200', foto: '' }
+  { nombre: 'White 824',                  uf: 10, anio: '2006', m2: '600', lat: -34.645155, lng: -58.490066, foto: '' },
+  { nombre: 'Timoteo Gordillo 1079',      uf:  6, anio: '2006', m2: '450', lat: -34.649923, lng: -58.51814, foto: '' },
+  { nombre: 'Timoteo Gordillo 1789',      uf:  2, anio: '', m2: '450', lat: -34.656042, lng: -58.509621, foto: '' },
+  { nombre: 'Zelada 6865',                uf:  8, anio: '2006', m2: '400', lat: -34.654858, lng: -58.5121, foto: '' },
+  { nombre: 'Cafayate 1015',              uf:  2, anio: '1997', m2: '400', lat: -34.649462, lng: -58.514351, foto: '' },
+  { nombre: 'Fragata Céfiro 1791',        uf:  4, anio: '2024', m2: '650', lat: -34.658425, lng: -58.518141, foto: '' },
+  { nombre: 'Fragata Céfiro 1815',        uf:  8, anio: '2024', m2: '650', lat: -34.658772, lng: -58.517689, foto: '' },
+  { nombre: 'Fragata Céfiro 1895',        uf:  5, anio: '2024', m2: '450', lat: -34.659336, lng: -58.516954, foto: '' },
+  { nombre: 'Ulrico Schmidl 7189',        uf:  9, anio: '2023', m2: '650', lat: -34.655248, lng: -58.516574, foto: '' },
+  { nombre: 'Ulrico Schmidl 7256',        uf:  9, anio: '2023', m2: '650', lat: -34.656004, lng: -58.517303, foto: '' },
+  { nombre: 'Acassuso 6971',              uf:  6, anio: '2023', m2: '450', lat: -34.651878, lng: -58.517563, foto: '' },
+  { nombre: 'Fragata La Argentina 1835',  uf:  4, anio: '2026', m2: '600', lat: -34.658678, lng: -58.51531, foto: '' },
+  { nombre: 'Fragata La Argentina 1824',  uf:  8, anio: '2026', m2: '600', lat: -34.658567, lng: -58.515317, foto: '' },
+  { nombre: 'Carhué 1644',                uf:  3, anio: '2021', m2: '600', lat: -34.655796, lng: -58.516193, foto: '' },
+  { nombre: 'Carhué 1635',                uf:  3, anio: '2021', m2: '700', lat: -34.655766, lng: -58.516338, foto: '' },
+  { nombre: 'Carhué 1675',                uf:  6, anio: '2016', m2: '500', lat: -34.656114, lng: -58.51589, foto: '' },
+  { nombre: 'Carhué 1611',                uf:  1, anio: '2011', m2: '250', lat: -34.655606, lng: -58.516544, foto: '' },
+  { nombre: 'Albariño 735',               uf:  6, anio: '2020', m2: '435', lat: -34.645156, lng: -58.503166, foto: '' },
+  { nombre: 'Pilar 1353',                 uf:  6, anio: '', m2: '800', lat: -34.652975, lng: -58.510914, foto: '' },
+  { nombre: 'Cossio 6275',                uf:  7, anio: '2021', m2: '1200', lat: -34.645775, lng: -58.51515, foto: '' },
+  { nombre: 'Cossio 6518',                uf:  5, anio: '', m2: '500', lat: -34.647691, lng: -58.517107, foto: '' },
+  { nombre: 'Emilio Castro 5221',         uf:  6, anio: '', m2: '600', lat: -34.644016, lng: -58.49859, foto: '' },
+  { nombre: 'Montiel 1735',               uf:  6, anio: '2012', m2: '400', lat: -34.657236, lng: -58.518023, foto: '' },
+  { nombre: 'Montiel 1744',               uf:  6, anio: '2014', m2: '400', lat: -34.657275, lng: -58.517837, foto: '' },
+  { nombre: 'Montiel 1820',               uf:  6, anio: '2014', m2: '400', lat: -34.658088, lng: -58.516776, foto: '' },
+  { nombre: 'Montiel 1831',               uf: 14, anio: '2018', m2: '1200', lat: -34.658199, lng: -58.516771, foto: '' },
+  { nombre: 'Guaminí 1440',               uf:  3, anio: '2021', m2: '600', lat: -34.654668, lng: -58.519559, foto: '' },
+  { nombre: 'Guaminí 1548',               uf: 12, anio: '2015', m2: '1200', lat: -34.65559, lng: -58.518358, foto: '' },
+  { nombre: 'Zelada 7165',                uf:  6, anio: '2018', m2: '400', lat: -34.657061, lng: -58.514376, foto: '' },
+  { nombre: 'Martiniano Leguizamón 1443', uf: 14, anio: '', m2: '1200', lat: -34.652426, lng: -58.508616, foto: '' }
 ];
 
 // Trabajos para clientes. "tipo": 'Casa' o 'Reforma'. La sección de trabajos aparece sola cuando hay al menos uno.
@@ -419,6 +449,34 @@ document.getElementById('form').addEventListener('submit', e => {
   ].filter(Boolean);
   window.open(`https://wa.me/${CONTACTO.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
 });
+/* ---------- Mapa ---------- */
+(function () {
+  document.getElementById('leg-done').textContent = FINALIZADOS.length;
+  document.getElementById('leg-active').textContent = EN_OBRA.length;
+  if (!window.L) return;
+  const map = L.map('map', { scrollWheelZoom: false, zoomSnap: 0.25, zoomControl: true, minZoom: 11, maxZoom: 18 });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd', maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  }).addTo(map);
+  const icon = src => L.divIcon({ className: 'pin', html: `<img src="${src}" alt="">`, iconSize: [30, 22], iconAnchor: [15, 20], popupAnchor: [0, -18] });
+  const gold = icon('logo-gold.png'), gray = icon('logo-gray.png');
+  const pts = [];
+  const add = (p, enObra) => {
+    if (p.lat == null || p.lng == null) return;
+    const datos = enObra
+      ? 'Unidades disponibles · <a href="#contacto">Consultar</a>'
+      : [p.uf ? `${p.uf} ${p.uf === 1 ? 'unidad' : 'unidades'}` : '', p.m2 ? `${Number(p.m2).toLocaleString('es-AR')} m²` : '', p.anio || ''].filter(Boolean).join(' · ');
+    L.marker([p.lat, p.lng], { icon: enObra ? gray : gold, title: p.nombre, alt: p.nombre, riseOnHover: true, zIndexOffset: enObra ? 500 : 0 })
+      .bindPopup(`<span class="pop-tag" style="color:${enObra ? '#6E6E69' : '#8A6A22'}">${enObra ? 'En obra' : 'Entregada'}</span><strong>${esc(p.nombre)}</strong>${datos}`)
+      .addTo(map);
+    pts.push([p.lat, p.lng]);
+  };
+  FINALIZADOS.forEach(p => add(p, false));
+  EN_OBRA.forEach(p => add(p, true));
+  if (pts.length) map.fitBounds(pts, { padding: [40, 40], maxZoom: 16 });
+  map.on('click', () => map.scrollWheelZoom.enable());
+})();
 </script>
 </body>
 </html>
