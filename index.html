@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://3solesdesarrollo.com.ar/logo-black.png">
 <link rel="icon" type="image/png" href="logo-black.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..700&display=swap" rel="stylesheet">
@@ -97,16 +97,16 @@
   .dl-year{font-size:14px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
   #mapa{border-top:1px solid var(--line)}
   .map-box{height:clamp(380px,60vw,640px);background:#E9E7E1;border:1px solid var(--line)}
-  .map-box .leaflet-container{font-family:inherit;background:#E9E7E1}
+  .map-box .maplibregl-map{font-family:inherit}
   .map-legend{display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:20px;font-size:14px;color:var(--text)}
   .map-legend .item{display:inline-flex;align-items:center;gap:10px}
   .map-legend img{height:16px;width:auto}
-  .leaflet-container .pin img{width:30px!important;height:auto!important;display:block;filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 1px 2px rgba(0,0,0,.25));transition:transform .15s}
-  .leaflet-container .pin:hover img{transform:scale(1.15)}
-  .pin-active{z-index:1000!important}
-  .leaflet-popup-content-wrapper{border-radius:0;box-shadow:0 4px 18px rgba(0,0,0,.12)}
-  .leaflet-popup-content{margin:14px 18px;font-size:14px;line-height:1.5;color:var(--text)}
-  .leaflet-popup-content strong{display:block;font-size:16px;font-weight:500;color:var(--ink);margin-bottom:2px}
+  .pin{cursor:pointer;line-height:0}
+  .pin img{width:30px;height:auto;display:block;filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 1px 2px rgba(0,0,0,.25));transition:transform .15s}
+  .pin:hover img{transform:scale(1.15)}
+  .maplibregl-popup-content{border-radius:0;padding:14px 32px 14px 18px;box-shadow:0 4px 18px rgba(0,0,0,.12);font-size:14px;line-height:1.5;color:var(--text)}
+  .maplibregl-popup-content strong{display:block;font-size:16px;font-weight:500;color:var(--ink);margin-bottom:2px}
+  .maplibregl-popup-close-button{font-size:18px;width:32px;height:32px}
   .pop-tag{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
   .two{display:flex;flex-wrap:wrap;gap:48px 96px}
   .two > *{flex:1 1 340px}
@@ -314,7 +314,7 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script>
 /* ===================== DATOS PARA EDITAR ===================== */
 // Dejar vacío ('') lo que todavía no exista: la web oculta ese dato automáticamente.
@@ -453,29 +453,51 @@ document.getElementById('form').addEventListener('submit', e => {
 (function () {
   document.getElementById('leg-done').textContent = FINALIZADOS.length;
   document.getElementById('leg-active').textContent = EN_OBRA.length;
-  if (!window.L) return;
-  const map = L.map('map', { scrollWheelZoom: false, zoomSnap: 0.25, zoomControl: true, minZoom: 11, maxZoom: 18 });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-    subdomains: 'abcd', maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-  }).addTo(map);
-  const icon = src => L.divIcon({ className: 'pin', html: `<img src="${src}" alt="">`, iconSize: [30, 22], iconAnchor: [15, 20], popupAnchor: [0, -18] });
-  const gold = icon('logo-gold.png'), gray = icon('logo-gray.png');
-  const pts = [];
-  const add = (p, enObra) => {
-    if (p.lat == null || p.lng == null) return;
-    const datos = enObra
-      ? 'Unidades disponibles · <a href="#contacto">Consultar</a>'
-      : [p.uf ? `${p.uf} ${p.uf === 1 ? 'unidad' : 'unidades'}` : '', p.m2 ? `${Number(p.m2).toLocaleString('es-AR')} m²` : '', p.anio || ''].filter(Boolean).join(' · ');
-    L.marker([p.lat, p.lng], { icon: enObra ? gray : gold, title: p.nombre, alt: p.nombre, riseOnHover: true, zIndexOffset: enObra ? 500 : 0 })
-      .bindPopup(`<span class="pop-tag" style="color:${enObra ? '#6E6E69' : '#8A6A22'}">${enObra ? 'En obra' : 'Entregada'}</span><strong>${esc(p.nombre)}</strong>${datos}`)
-      .addTo(map);
-    pts.push([p.lat, p.lng]);
+  if (!window.maplibregl) return;
+  const STYLE = 'https://tiles.openfreemap.org/styles/positron';
+  const obras = [
+    ...FINALIZADOS.map(p => ({ ...p, enObra: false })),
+    ...EN_OBRA.map(p => ({ ...p, enObra: true }))   // al final: quedan por encima
+  ].filter(p => p.lat != null && p.lng != null);
+  const lngs = obras.map(p => p.lng), lats = obras.map(p => p.lat);
+  const bounds = [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]];
+
+  const init = style => {
+    const map = new maplibregl.Map({
+      container: 'map', style, bounds,
+      fitBoundsOptions: { padding: 50, maxZoom: 16 },
+      minZoom: 10, maxZoom: 18, dragRotate: false, pitchWithRotate: false,
+      cooperativeGestures: true,
+      attributionControl: { compact: true },
+      locale: {
+        'CooperativeGesturesHandler.WindowsHelpText': 'Usá Ctrl + rueda del mouse para hacer zoom',
+        'CooperativeGesturesHandler.MacHelpText': 'Usá ⌘ + rueda del mouse para hacer zoom',
+        'CooperativeGesturesHandler.MobileHelpText': 'Usá dos dedos para mover el mapa'
+      }
+    });
+    map.touchZoomRotate.disableRotation();
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
+    obras.forEach(p => {
+      const el = document.createElement('button');
+      el.type = 'button'; el.className = 'pin';
+      el.setAttribute('aria-label', `${p.nombre} — ${p.enObra ? 'en obra' : 'entregada'}`);
+      el.style.cssText = 'background:none;border:0;padding:0';
+      el.innerHTML = `<img src="${p.enObra ? 'logo-gray.png' : 'logo-gold.png'}" alt="">`;
+      const datos = p.enObra
+        ? 'Unidades disponibles · <a href="#contacto">Consultar</a>'
+        : [p.uf ? `${p.uf} ${p.uf === 1 ? 'unidad' : 'unidades'}` : '', p.m2 ? `${Number(p.m2).toLocaleString('es-AR')} m²` : '', p.anio || ''].filter(Boolean).join(' · ');
+      const popup = new maplibregl.Popup({ offset: 22, maxWidth: '260px', focusAfterOpen: false })
+        .setHTML(`<span class="pop-tag" style="color:${p.enObra ? '#6E6E69' : '#8A6A22'}">${p.enObra ? 'En obra' : 'Entregada'}</span><strong>${esc(p.nombre)}</strong>${datos}`);
+      new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat([p.lng, p.lat]).setPopup(popup).addTo(map);
+    });
   };
-  FINALIZADOS.forEach(p => add(p, false));
-  EN_OBRA.forEach(p => add(p, true));
-  if (pts.length) map.fitBounds(pts, { padding: [40, 40], maxZoom: 16 });
-  map.on('click', () => map.scrollWheelZoom.enable());
+
+  // Estilo claro sin etiquetas: se quitan todas las capas de texto e íconos
+  fetch(STYLE).then(r => r.json()).then(style => {
+    style.layers = style.layers.filter(l => l.type !== 'symbol');
+    style.layers.forEach(l => { if (l.type === 'background') l.paint = { 'background-color': '#EEECE7' }; });
+    init(style);
+  }).catch(() => init(STYLE));
 })();
 </script>
 </body>
